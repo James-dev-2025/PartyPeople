@@ -47,12 +47,29 @@ To complete the application, you need to carry out the tasks below.
 ### Task 1
 The PartyPeople project does not currently build. Can you help figure out why, and resolve the build issues?
 
-	```
-	The Nuget Package Dapper was missing from the project. Adding it resolved all the build issues
-	```
-
+#### Task 1 answer	
+The Nuget Package Dapper was missing from the project. Adding it resolved all the build issues
+	
 ### Task 2
 A bug has been reported that updating events is not working as expected. Can you help by debugging the functionality and resolving the issue?
+
+#### Task 2 answer
+I was able ot identify the issue by running the project, creating a couple of events and trying to update one of them. This resulted in an exception being thrown that told me what the issue was.
+
+The Sql in the EventRepository.UpdateAsync() had missing WHERE Clauses in the UPDATE and SELECT section of the query. This meant the query was updating every record in the event table and then trying to return every record. Instead the desired behaviour should be to Update and Retrieve just one Event
+
+Returning every record threw an exception because
+		```
+        var updatedEvent = await Connection.QuerySingleAsync<Event>(command);
+		```
+could not map a collection of Events to a single Event object. 
+
+#### Testing
+At this point I decided to add Tests to the project to make sure every feature works as intended and to help with future debugging. Unit/Integration tests are usually the first place I look when trying to debug.
+
+For simplicities sake I opted to use an in memory database to test on. But in a real project my preference would be to use a locally hosted test database.
+
+I also added my preferred package for Assertions: Shouldly.
 
 ### Task 3
 Koderly would like to track which employees are attending which events. Can you extend the PartyPeople application to add this functionality?
