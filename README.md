@@ -47,6 +47,10 @@ To complete the application, you need to carry out the tasks below.
 ### Task 1
 The PartyPeople project does not currently build. Can you help figure out why, and resolve the build issues?
 
+	```
+	The Nuget Package Dapper was missing from the project. Adding it resolved all the build issues
+	```
+
 ### Task 2
 A bug has been reported that updating events is not working as expected. Can you help by debugging the functionality and resolving the issue?
 
