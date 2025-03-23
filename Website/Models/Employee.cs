@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Website.DTOs;
 
 namespace Website.Models;
 
@@ -29,4 +31,10 @@ public class Employee
     /// </summary>
     [DisplayName("Date of Birth")]
     public required DateOnly DateOfBirth { get; init; }
+
+    /// <summary>
+    /// A list of events this employee is attending
+    /// </summary>
+    [NotMapped]
+    public List<EmployeeEventDTO> Events = new List<EmployeeEventDTO>();
 }

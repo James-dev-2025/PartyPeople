@@ -40,6 +40,25 @@
     </div>
 </div>
 
+<div class="d-flex align-items-center mb-2">
+    <h4 class="me-auto mb-0">Events</h4>
+</div>
+
+<div class="card p-3">
+
+    <ul class="mt-2" id="employeeEventList">
+        @foreach (var employeeEvent in Model.Events)
+        {
+            <li id="employeeEvent-@employeeEvent.Id">
+                <div class="d-flex flex-row gap-2 align-items-baseline">
+                    <p>@employeeEvent.EventDescription @employeeEvent.EventStartDateTime.ToShortDateString()</p>
+                </div>
+            </li>
+        }
+
+    </ul>
+</div>
+
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -31,7 +31,7 @@ namespace Website.Test.Repositories
 
         #region GetAllAsync
         [Fact]
-        public async Task GetAllAsync_ShouldReturnOnlyEmployees()
+        public async Task GetAllAsync_ShouldReturnAllEmployees_WhenSearchTermIsNull()
         {
             var Employee1 = new Employee
             {
@@ -61,6 +61,7 @@ namespace Website.Test.Repositories
             result.Any(x => x.FirstName == Employee1.FirstName).ShouldBeTrue();
             result.Any(x => x.FirstName == Employee2.FirstName).ShouldBeTrue();
         }
+
         #endregion
 
         #region GetByIdAsync

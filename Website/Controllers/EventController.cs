@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Website.Models;
 using Website.Persistence;
+using Website.Repositories;
 
 namespace Website.Controllers
 {
@@ -34,6 +35,8 @@ namespace Website.Controllers
                 return NotFound();
 
             var @event = await _dbContext.Events.GetByIdAsync(id, cancellationToken);
+            var employees = await _dbContext.EmployeeEvents.GetAllAsync(eventId: id, cancellationToken: cancellationToken);
+            @event.Employees = employees.ToList();
             return View(@event);
         }
 

@@ -65,7 +65,7 @@ Returning every record threw an exception because
 could not map a collection of Events to a single Event object. 
 
 #### Testing
-At this point I decided to add Tests to the project to make sure every feature works as intended and to help with future debugging. Unit/Integration tests are usually the first place I look when trying to debug.
+At this point I decided to add Tests to the project to make sure every feature works as intended and to help with future debugging. Unit/Integration tests are usually the first place I look when trying to debug. I also made sure to add a test covering the issue from Task 2.
 
 For simplicities sake I opted to use an in memory database to test on. But in a real project my preference would be to use a locally hosted test database.
 

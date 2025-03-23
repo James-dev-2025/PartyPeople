@@ -11,7 +11,7 @@
     <a class="btn btn-danger btn-sm m-1" role="button" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete</a>
 </div>
 
-<div class="card">
+<div class="card mb-4">
     <div class="card-body">
         <div class="row mb-3 g-2 align-items-center">
             <div class="col-sm-2">
@@ -46,6 +46,36 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="d-flex align-items-center mb-2">
+    <h4 class="me-auto mb-0">Employees Attending</h4>
+</div>
+
+<div class="card p-3">
+    <div class="w-25 d-flex flex-row align-items-center" >
+        <input type="hidden" required name="EventId" value="@Model.Id" />
+        <input type="hidden" required id="EmployeeId" name="EmployeeId" />
+        <select id="employeeSearch" class="form-select searchable-select"
+                data-search-url="/EmployeeEvent/GetValidEmployeeOptionsForEvent"
+                data-extra-params='{"eventId": "@Model.Id"}'
+                data-target-input="EmployeeId"
+                data-required-char-count="2">
+        </select>
+        <button id="createEmployeeEventBtn" class="btn btn-primary btn-sm m-1" onclick="createEmployeeEvent()" @(Model.AtCapacity ? "disabled" : "") >Add</button>
+    </div>
+    <ul class="mt-2" id="employeeEventList">
+        @foreach (var employeeEvent in Model.Employees)
+        {
+            <li id="employeeEvent-@employeeEvent.Id">
+                <div class="d-flex flex-row gap-2 align-items-baseline">
+                    <p>@employeeEvent.EmployeeFirstName @employeeEvent.EmployeeLastName</p>
+                    <button class="btn btn-danger btn-sm deleteEmployeeBtn" data-id="@employeeEvent.Id">Remove</button>
+                </div>
+            </li>
+        }
+
+    </ul>
 </div>
 
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">

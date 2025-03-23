@@ -41,11 +41,12 @@ public class EmployeeRepository : RepositoryBase
     }
 
     /// <summary>
-    /// Gets all employees.
+    /// Lists employees
     /// </summary>
+    /// <param name="searchTerm">A parameter to filter the employees on</param>
     /// <param name="cancellationToken">A token which can be used to cancel asynchronous operations.</param>
     /// <returns>An awaitable task whose result is the employees found.</returns>
-    public async Task<IReadOnlyCollection<Employee>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Employee>> GetAllAsync( CancellationToken cancellationToken)
     {
         var command = new CommandDefinition(
             @"
@@ -53,7 +54,7 @@ public class EmployeeRepository : RepositoryBase
                         [FirstName],
                         [LastName],
                         [DateOfBirth]
-                FROM    [Employee] AS [E];
+                FROM    [Employee] AS [E]
             ",
             commandType: CommandType.Text,
             cancellationToken: cancellationToken);

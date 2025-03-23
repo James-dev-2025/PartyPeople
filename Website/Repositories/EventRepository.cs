@@ -239,4 +239,14 @@ public class EventRepository : RepositoryBase
 
         await Connection.ExecuteAsync(command);
     }
+
+    public async Task<bool> IsAtCapacityAsync(int eventId, CancellationToken cancellationToken = default)
+    {
+        var query = @"
+        SELECT COUNT(*) >= (SELECT MaximumCapacity FROM Event WHERE Id = @EventId)
+        FROM EmployeeEvent
+        WHERE EventId = @EventId";
+
+        return await Connection.ExecuteScalarAsync<bool>(new CommandDefinition(query, new { EventId = eventId }, cancellationToken: cancellationToken));
+    }
 }
