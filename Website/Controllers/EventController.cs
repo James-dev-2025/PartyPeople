@@ -88,6 +88,19 @@ namespace Website.Controllers
                 return View(@event);
             }
 
+            var currentAttendees = await _dbContext.EmployeeEvents.GetAllAsync(eventId: id, null, cancellationToken);
+
+            if(currentAttendees.Count > @event.MaximumCapacity)
+            {
+                validationResult.Errors.Add(new FluentValidation.Results.ValidationFailure(
+                    "MaximumCapacity",
+                    "The event's maximum capacity cannot be less than the number of current attendees."
+                ));
+
+                validationResult.AddToModelState(ModelState);
+                return View(@event);
+            }
+
             var updatedEvent = await _dbContext.Events.UpdateAsync(@event, cancellationToken);
 
             return RedirectToAction(nameof(Details), new { id = updatedEvent.Id });
