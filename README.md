@@ -74,6 +74,16 @@ I also added my preferred package for Assertions: Shouldly.
 ### Task 3
 Koderly would like to track which employees are attending which events. Can you extend the PartyPeople application to add this functionality?
 
+#### Task 3 answer
+I Achieved this by creating a Linking Table called EmployeeEvent and a Repository for it.
+
+The Employee display page was extended to show a list of events that employee has/will attend
+
+The Event display page was extended to manage employees who are attending an event. Here you can search for employees that are not currently attending the event and add them. There is also the ability to remove them if needed.
+
+The html and javascript used for this searchable select is generic so if I wanted to add similar functionality to the employee page to manage which events that employee is attending the front end code could be reused. All that would be required is a new endpoint to get Events that the employee is not currently attending.
+
+
 ### Task 4
 Koderly would like to track which drinks should be ordered for employees. Can you extend the functionality to allow each employee to optionally specify a ‘Favourite Drink’?
 
