@@ -24,12 +24,13 @@
                 if (response.success) {
                         
                     var newEmployeeHtml = `
-                        <li id="employeeEvent-${response.data.id}">
-                            <div class="d-flex flex-row gap-2  align-items-baseline">
-                                <p>${response.data.employeeFirstName} ${response.data.employeeLastName}</p>
-                                <button class="btn btn-danger btn-sm deleteEmployeeBtn" data-id="${response.data.id}">Delete</button>
-                            </div>
-                        </li>
+                <tr id="employeeEvent-@employeeEvent.Id">
+                    <td>${response.data.employeeFirstName} ${response.data.employeeLastName}</td>
+                    <td>${response.data.employeeFavouriteDrink ? response.data.employeeFavouriteDrink : "Not Specified"}</td>
+                    <td class="text-end">
+                        <button class="btn btn-danger btn-sm deleteEmployeeBtn" data-id="${response.data.id}">Delete</button>
+                     </td>
+                </tr>
                     `;
                     $('#employeeEventList').append(newEmployeeHtml);
                     $('#employeeSearch').val('').trigger('change');

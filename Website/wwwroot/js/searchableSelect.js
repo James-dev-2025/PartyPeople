@@ -5,6 +5,7 @@
         let targetInput = $select.data("target-input");
         let requiredCharCount = $select.data("required-char-count") || 0
         let extraParams = $select.data("extra-params");
+        let placeholder = $select.data("placeholder");
 
         if (typeof extraParams === "string") {
             extraParams = JSON.parse(extraParams);
@@ -12,7 +13,7 @@
 
         $select.select2({
             minimumInputLength: requiredCharCount,
-            placeholder: "Search...",
+            placeholder: placeholder ?? "Search...",
             allowClear: true,
             ajax: {
                 url: apiUrl,

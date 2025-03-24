@@ -124,7 +124,8 @@ namespace Website.Repositories
                         [EMP].[Id] AS EmployeeId,
                         [EMP].[FirstName] AS EmployeeFirstName,
                         [EMP].[LastName] AS EmployeeLastName,
-                        [EMP].[DateOfBirth] AS EmployeeDateOfBirth
+                        [EMP].[DateOfBirth] AS EmployeeDateOfBirth,
+                        [EMP].[FavouriteDrink] AS EmployeeFavouriteDrink
                 FROM    [EmployeeEvent] AS [EE]
                 INNER JOIN [Employee] AS [EMP] ON EE.EmployeeId = EMP.Id
                 INNER JOIN [Event] AS [EVT] ON EE.EventId = EVT.Id

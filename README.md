@@ -88,6 +88,9 @@ The javascript used for this searchable select is generic so if I wanted to add 
 ### Task 4
 Koderly would like to track which drinks should be ordered for employees. Can you extend the functionality to allow each employee to optionally specify a ‘Favourite Drink’?
 
+#### Task 4 answer
+I have extended the employee create and edit form with a text input for their favourite drink. This data gets stored in a new column in the Employee table and is shown on the employee details page and the Events display page in the attending employees section.This data can be empty if the employee does not wish to specify a favourite drink, doing this will render placeholder text "Not Specified" on the front end. 
+
 ### Task 5
 Koderly would like to track the five most social employees (i.e. employees who have attended the most events). Can you add a widget to the Home screen to display this information?
 

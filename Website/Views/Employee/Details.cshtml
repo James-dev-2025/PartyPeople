@@ -42,7 +42,7 @@
                 <span>Favourite Drink:</span>
             </div>
             <div class="col-sm-3">
-                <span>@Model.FavouriteDrink</span>
+                <span>@(string.IsNullOrEmpty(Model.FavouriteDrink) ? "Not Specified" : Model.FavouriteDrink) </span>
             </div>
         </div>
     </div>
@@ -53,18 +53,21 @@
 </div>
 
 <div class="card p-3">
-
-    <ul class="mt-2" id="employeeEventList">
+    <table class="table table-striped table-hover mt-2">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
         @foreach (var employeeEvent in Model.Events)
         {
-            <li id="employeeEvent-@employeeEvent.Id">
-                <div class="d-flex flex-row gap-2 align-items-baseline">
-                    <p>@employeeEvent.EventDescription @employeeEvent.EventStartDateTime.ToShortDateString()</p>
-                </div>
-            </li>
+            <tr id="employeeEvent-@employeeEvent.Id">
+                <td>@employeeEvent.EventDescription</td>
+                <td>@employeeEvent.EventStartDateTime.ToShortDateString()</td>
+            </tr>
         }
-
-    </ul>
+    </table>
 </div>
 
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
