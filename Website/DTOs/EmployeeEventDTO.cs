@@ -18,5 +18,6 @@ namespace Website.DTOs
         public string EmployeeFirstName { get; set; }
         public string EmployeeLastName { get; set; }
         public DateOnly EmployeeDateOfBirth { get; init; }
+        public string EmployeeFavouriteDrink { get; init; }
     }
 }

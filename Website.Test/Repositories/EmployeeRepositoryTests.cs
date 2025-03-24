@@ -149,7 +149,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var createdEmployee = await _context.Employees.CreateAsync(EmployeeToCreate, CancellationToken.None);
@@ -159,6 +160,7 @@ namespace Website.Test.Repositories
             createdEmployee.FirstName.ShouldBe("John");
             createdEmployee.LastName.ShouldBe("Doe");
             createdEmployee.DateOfBirth.ShouldBe(EmployeeToCreate.DateOfBirth);
+            createdEmployee.FavouriteDrink.ShouldBe(EmployeeToCreate.FavouriteDrink);
         }
 
         [Fact]
@@ -169,7 +171,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var Employee2 = new Employee
@@ -177,7 +180,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "Jane",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(2000, 1, 1)
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                FavouriteDrink = "Guinness"
             };
 
             var createdEmployee1 = await _context.Employees.CreateAsync(Employee1, CancellationToken.None);
@@ -188,12 +192,14 @@ namespace Website.Test.Repositories
             createdEmployee1.FirstName.ShouldBe("John");
             createdEmployee1.LastName.ShouldBe("Doe");
             createdEmployee1.DateOfBirth.ShouldBe(Employee1.DateOfBirth);
+            createdEmployee1.FavouriteDrink.ShouldBe(Employee1.FavouriteDrink);
 
             createdEmployee2.ShouldNotBeNull();
             createdEmployee2.Id.ShouldBeGreaterThan(0);
             createdEmployee2.FirstName.ShouldBe("Jane");
             createdEmployee2.LastName.ShouldBe("Doe");
             createdEmployee2.DateOfBirth.ShouldBe(Employee2.DateOfBirth);
+            createdEmployee2.FavouriteDrink.ShouldBe(Employee2.FavouriteDrink);
 
 
             createdEmployee1.Id.ShouldNotBe(createdEmployee2.Id);
@@ -208,7 +214,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var createdEmployee = await _context.Employees.CreateAsync(employeeToCreate, CancellationToken.None);
@@ -219,6 +226,7 @@ namespace Website.Test.Repositories
             insertedEmployee.ShouldNotBeNull();
             insertedEmployee.FirstName.ShouldBe("John");
             insertedEmployee.LastName.ShouldBe("Doe");
+            createdEmployee.FavouriteDrink.ShouldBe(employeeToCreate.FavouriteDrink);
             insertedEmployee.DateOfBirth.ShouldBe(employeeToCreate.DateOfBirth);
         }
 
@@ -234,12 +242,13 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var insertQuery = @"
-            INSERT INTO Employee (FirstName, LastName, DateOfBirth)
-            VALUES (@FirstName, @LastName, @DateOfBirth)
+            INSERT INTO Employee (FirstName, LastName, DateOfBirth, FavouriteDrink)
+            VALUES (@FirstName, @LastName, @DateOfBirth, @FavouriteDrink)
             RETURNING Id;
             ";
 
@@ -250,7 +259,8 @@ namespace Website.Test.Repositories
                 Id = insertedEmployee,
                 FirstName = "Steve",
                 LastName = "Jones",
-                DateOfBirth = new DateOnly(1990, 1, 1)
+                DateOfBirth = new DateOnly(1990, 1, 1),
+                FavouriteDrink = "Guinness"
             };
 
             var updatedEmployee = await _context.Employees.UpdateAsync(EmployeeToUpdate, CancellationToken.None);
@@ -258,6 +268,7 @@ namespace Website.Test.Repositories
             updatedEmployee.FirstName.ShouldBe(EmployeeToUpdate.FirstName);
             updatedEmployee.LastName.ShouldBe(EmployeeToUpdate.LastName);
             updatedEmployee.DateOfBirth.ShouldBe(EmployeeToUpdate.DateOfBirth);
+            updatedEmployee.FavouriteDrink.ShouldBe(EmployeeToUpdate.FavouriteDrink);
         }
 
         [Fact]
@@ -286,12 +297,13 @@ namespace Website.Test.Repositories
                 Id=0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var insertQuery = @"
-            INSERT INTO Employee (FirstName, LastName, DateOfBirth)
-            VALUES (@FirstName, @LastName, @DateOfBirth)
+            INSERT INTO Employee (FirstName, LastName, DateOfBirth, FavouriteDrink)
+            VALUES (@FirstName, @LastName, @DateOfBirth, @FavouriteDrink)
             RETURNING Id;
         ";
 
@@ -302,7 +314,8 @@ namespace Website.Test.Repositories
                 Id = insertedEmployeeId,
                 FirstName = "Steve",
                 LastName = "Jones",
-                DateOfBirth = new DateOnly(1990, 1, 1)
+                DateOfBirth = new DateOnly(1990, 1, 1),
+                FavouriteDrink = "Guinness"
             };
 
             var updatedEmployee = await _context.Employees.UpdateAsync(EmployeeToUpdate, CancellationToken.None);
@@ -314,6 +327,7 @@ namespace Website.Test.Repositories
             updatedEmployeeFromDb.FirstName.ShouldBe(EmployeeToUpdate.FirstName);
             updatedEmployeeFromDb.LastName.ShouldBe(EmployeeToUpdate.LastName);
             updatedEmployeeFromDb.DateOfBirth.ShouldBe(EmployeeToUpdate.DateOfBirth);
+            updatedEmployeeFromDb.FavouriteDrink.ShouldBe(EmployeeToUpdate.FavouriteDrink);
         }
 
         [Fact]
@@ -324,7 +338,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "Mojito"
             };
 
             var EmployeeNotToUpdate = new Employee
@@ -332,12 +347,13 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "Jane",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(2000, 1, 1)
+                DateOfBirth = new DateOnly(2000, 1, 1),
+                FavouriteDrink = "Orange Juice"
             };
 
             var insertQuery = @"
-            INSERT INTO Employee (FirstName, LastName, DateOfBirth)
-            VALUES (@FirstName, @LastName, @DateOfBirth)
+            INSERT INTO Employee (FirstName, LastName, DateOfBirth, FavouriteDrink)
+            VALUES (@FirstName, @LastName, @DateOfBirth, @FavouriteDrink)
             RETURNING Id;
         ";
 
@@ -349,7 +365,8 @@ namespace Website.Test.Repositories
                 Id = insertedEmployeeId1,
                 FirstName = "Steve",
                 LastName = "Jones",
-                DateOfBirth = new DateOnly(1990, 1, 1)
+                DateOfBirth = new DateOnly(1990, 1, 1),
+                FavouriteDrink = "Guinness"
             };
 
             var updatedEmployee = await _context.Employees.UpdateAsync(EmployeeToUpdateDto, CancellationToken.None);
@@ -361,6 +378,7 @@ namespace Website.Test.Repositories
             updatedEmployeeFromDb.FirstName.ShouldBe(EmployeeToUpdateDto.FirstName);
             updatedEmployeeFromDb.LastName.ShouldBe(EmployeeToUpdateDto.LastName);
             updatedEmployeeFromDb.DateOfBirth.ShouldBe(EmployeeToUpdateDto.DateOfBirth);
+            updatedEmployeeFromDb.FavouriteDrink.ShouldBe(EmployeeToUpdateDto.FavouriteDrink);
 
             //Other Employee should remain the same
             var notUpdatedEmployeeFromDb = await _connection.QuerySingleOrDefaultAsync<Employee>(
@@ -370,6 +388,7 @@ namespace Website.Test.Repositories
             notUpdatedEmployeeFromDb.FirstName.ShouldBe(EmployeeNotToUpdate.FirstName);
             notUpdatedEmployeeFromDb.LastName.ShouldBe(EmployeeNotToUpdate.LastName);
             notUpdatedEmployeeFromDb.DateOfBirth.ShouldBe(EmployeeNotToUpdate.DateOfBirth);
+            notUpdatedEmployeeFromDb.FavouriteDrink.ShouldBe(EmployeeNotToUpdate.FavouriteDrink);
         }
 
         #endregion

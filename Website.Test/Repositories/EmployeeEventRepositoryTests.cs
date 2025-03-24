@@ -55,7 +55,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "mojito"
             };
             var createdEmployee = await _context.Employees.CreateAsync(Employee1, CancellationToken.None);
 
@@ -105,7 +106,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink= "mojito"
             };
             var createdEmployee1 = await _context.Employees.CreateAsync(Employee1, CancellationToken.None);
 
@@ -114,7 +116,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = "guinness"
             };
             var createdEmployee2 = await _context.Employees.CreateAsync(Employee1, CancellationToken.None);
 
@@ -221,7 +224,8 @@ namespace Website.Test.Repositories
                 Id = 0,
                 FirstName = "John",
                 LastName = "Doe",
-                DateOfBirth = new DateOnly(1999, 1, 1)
+                DateOfBirth = new DateOnly(1999, 1, 1),
+                FavouriteDrink = ""
             };
             var createdEmployee = await _context.Employees.CreateAsync(Employee1, CancellationToken.None);
 

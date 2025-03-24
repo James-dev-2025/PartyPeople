@@ -33,6 +33,12 @@ public class Employee
     public required DateOnly DateOfBirth { get; init; }
 
     /// <summary>
+    /// The favourite drink for this employee model.
+    /// </summary>
+    [DisplayName("Favourite Drink")]
+    public string FavouriteDrink { get; init; }
+
+    /// <summary>
     /// A list of events this employee is attending
     /// </summary>
     [NotMapped]

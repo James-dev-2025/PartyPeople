@@ -27,10 +27,6 @@ namespace Website.Repositories
                     [EventId] INTEGER NOT NULL,
                     FOREIGN KEY ([EmployeeId]) REFERENCES [Employee]([Id]) ON DELETE CASCADE,
                     FOREIGN KEY ([EventId]) REFERENCES [Event]([Id]) ON DELETE CASCADE
-                    CONSTRAINT Check_Event_Capacity CHECK (
-                        (SELECT COUNT(*) FROM EmployeeEvent ee WHERE ee.EventId = EmployeeEvent.EventId) 
-                        < (SELECT MaximumCapacity FROM Event e WHERE e.Id = EmployeeEvent.EventId)
-                    )
                 );
                 ",
                 commandType: CommandType.Text,
@@ -58,7 +54,8 @@ namespace Website.Repositories
                         [EMP].[Id] AS EmployeeId,
                         [EMP].[FirstName] AS EmployeeFirstName,
                         [EMP].[LastName] AS EmployeeLastName,
-                        [EMP].[DateOfBirth] AS EmployeeDateOfBirth
+                        [EMP].[DateOfBirth] AS EmployeeDateOfBirth,
+                        [EMP].[FavouriteDrink] AS EmployeeFavouriteDrink
                 FROM    [EmployeeEvent] AS [EE]
                 INNER JOIN [Employee] AS [EMP] ON EE.EmployeeId = EMP.Id
                 INNER JOIN [Event] AS [EVT] ON EE.EventId = EVT.Id
