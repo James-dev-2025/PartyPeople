@@ -1,4 +1,4 @@
-﻿# Party People
+# Party People
 
 ## Scenario
 
@@ -77,7 +77,7 @@ Koderly would like to track which employees are attending which events. Can you 
 #### Task 3 answer
 I Achieved this by creating a Linking Table called EmployeeEvent and a Repository for it.
  
-I made sure to respect the maximum capacity prop on the Event. There is a db constraint on the new table and some general checks in the controllers to return errors if a request attempts to go over the capacity. The Edit Event Form will now show a validation error if edditing the maximum capacity below the amount of attendees
+I made sure to respect the maximum capacity prop on the Event. There is some general checks in the controllers to return errors if a request attempts to go over the capacity. The Edit Event Form will now show a validation error if edditing the maximum capacity below the amount of attendees
 
 The Employee display page was extended to show a list of events that employee has/will attend
 
@@ -89,13 +89,22 @@ The javascript used for this searchable select is generic so if I wanted to add 
 Koderly would like to track which drinks should be ordered for employees. Can you extend the functionality to allow each employee to optionally specify a ‘Favourite Drink’?
 
 #### Task 4 answer
-I have extended the employee create and edit form with a text input for their favourite drink. This data gets stored in a new column in the Employee table and is shown on the employee details page and the Events display page in the attending employees section.This data can be empty if the employee does not wish to specify a favourite drink, doing this will render placeholder text "Not Specified" on the front end. 
+I have extended the employee create and edit form with a text input for their favourite drink. This data gets stored in a new column in the Employee table and is shown on the employee details page and the Events display page in the attending employees section. This data can be empty if the employee does not wish to specify a favourite drink, doing this will render placeholder text "Not Specified" on the front end. 
 
 ### Task 5
 Koderly would like to track the five most social employees (i.e. employees who have attended the most events). Can you add a widget to the Home screen to display this information?
 
+#### Task 5 answer
+I created a Generic ViewComponent called ListWidget. This view component consumes a title, a url to get its data from and another url to serve as a link if you click on a list item.
+
+I created a new endpoint for getting the data ("EmployeeEvent/GetMostSocialEmployees")
+
 ### Task 6
 Koderly would like to track upcoming events which have no attendees registered. Can you add a widget to the Home screen to display this information?
+
+#### Task 6 answer
+Using the same View Component for task 5 and also creating a new endpoint to get the data into the component, there is now a widget on the home screen to show events with no attendees.
+
 
 ## Submission
 Please commit your work for review by __3 pm__ on __Friday, 13 September 2024__, by completing the steps below.

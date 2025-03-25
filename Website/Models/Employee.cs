@@ -43,4 +43,5 @@ public class Employee
     /// </summary>
     [NotMapped]
     public List<EmployeeEventDTO> Events = new List<EmployeeEventDTO>();
+
 }

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Logging;
 using System.Data;
 using Website.DTOs;
 using Website.Models;
@@ -40,7 +41,7 @@ namespace Website.Repositories
         /// Gets all employeeEvents.
         /// </summary>
         /// <param name="cancellationToken">A token which can be used to cancel asynchronous operations.</param>
-        /// <returns>An awaitable task whose result is the events found.</returns>
+        /// <returns>An awaitable task whose result is the employeeEvents found.</returns>
         public async Task<IReadOnlyCollection<EmployeeEventDTO>> GetAllAsync(int? eventId = null, int? employeeId = null, CancellationToken cancellationToken = default)
         {
             var command = new CommandDefinition(
@@ -75,6 +76,73 @@ namespace Website.Repositories
             return employeeEvents.ToArray();
         }
 
+
+        /// <summary>
+        /// Gets a specified amount of employeeEvents ordered by the the most popular employeeId.
+        /// </summary>
+        /// <param name="cancellationToken">A token which can be used to cancel asynchronous operations.</param>
+        /// <returns>An awaitable task whose result is the employeeEvents found.</returns>
+        public async Task<IReadOnlyCollection<EmployeeEventCountDTO>> GetMostSocialEmployeesAsync(int take, CancellationToken cancellationToken)
+        {
+            var command = new CommandDefinition(
+                @"
+                SELECT 
+                    EMP.Id AS Id,
+                    EMP.FirstName AS FirstName,
+                    EMP.LastName AS LastName,
+                    COUNT(EE.EmployeeId) AS EventCount
+                FROM EmployeeEvent EE
+                INNER JOIN Employee EMP ON EE.EmployeeId = EMP.Id
+                GROUP BY EMP.Id, EMP.FirstName, EMP.LastName
+                ORDER BY EventCount DESC
+                LIMIT 5;
+                ",
+                parameters: new
+                {
+                    Take = take
+                },
+                commandType: CommandType.Text,
+                cancellationToken: cancellationToken);
+
+            var employees = await Connection.QueryAsync<EmployeeEventCountDTO>(command);
+
+            return employees.ToList();
+        }
+
+        /// <summary>
+        /// Gets a specified amount of events Where there is not entry in the EmployeeEventTable for that Id.
+        /// </summary>
+        /// <param name="cancellationToken">A token which can be used to cancel asynchronous operations.</param>
+        /// <returns>An awaitable task whose result is the Events found.</returns>
+        public async Task<IReadOnlyCollection<Event>> GetEventsWithNoEmployeesAsync(int take, CancellationToken cancellationToken)
+        {
+            var command = new CommandDefinition(
+                @"
+                    SELECT 
+                        E.Id,
+                        E.Description
+                    FROM Event E
+                    LEFT JOIN EmployeeEvent EE ON E.Id = EE.EventId
+                    WHERE EE.EmployeeId IS NULL;
+                ",
+                parameters: new
+                {
+                    Take = take
+                },
+                commandType: CommandType.Text,
+                cancellationToken: cancellationToken);
+
+            var events = await Connection.QueryAsync<Event>(command);
+
+            return events.ToList();
+        }
+
+
+        /// <summary>
+        /// Gets all employees that are not currently attending a specified event.
+        /// </summary>
+        /// <param name="cancellationToken">A token which can be used to cancel asynchronous operations.</param>
+        /// <returns>An awaitable task whose result is the employeeEvents found.</returns>
         public async Task<IReadOnlyCollection<Employee>> GetAllEmployeesNotInEventAsync(int eventId, string? searchTerm, CancellationToken cancellationToken = default)
         {
             var command = new CommandDefinition(

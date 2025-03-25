@@ -63,5 +63,19 @@ namespace Website.Controllers
 
             return Json(data.Select(x => new SelectOption { Id = x.Id, Text = $"{x.FirstName} {x.LastName}" }));
         }
+
+        public async Task<ActionResult> GetMostSocialEmployees(int take, CancellationToken cancellationToken)
+        {
+            var data = await _dbContext.EmployeeEvents.GetMostSocialEmployeesAsync(take, cancellationToken);
+
+            return Json(data.Select(x => new ListWidgetDto { Id = x.Id, Text = $"{x.FirstName} {x.LastName}: {x.EventCount} Events!"}));
+        }
+
+        public async Task<ActionResult> GetEventsWithNoEmployees(int take, CancellationToken cancellationToken)
+        {
+            var data = await _dbContext.EmployeeEvents.GetEventsWithNoEmployeesAsync(take, cancellationToken);
+
+            return Json(data.Select(x => new ListWidgetDto { Id = x.Id, Text = $"{x.Description}" }));
+        }
     }
 }

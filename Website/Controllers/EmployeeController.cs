@@ -27,6 +27,7 @@ namespace Website.Controllers
             return View(new EmployeeListViewModel { Employees = employees });
         }
 
+
         // GET: Employee/Details/5
         public async Task<ActionResult> Details(int id, CancellationToken cancellationToken)
         {
