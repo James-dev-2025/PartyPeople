@@ -29,6 +29,9 @@ namespace Website.Repositories
                     FOREIGN KEY ([EmployeeId]) REFERENCES [Employee]([Id]) ON DELETE CASCADE,
                     FOREIGN KEY ([EventId]) REFERENCES [Event]([Id]) ON DELETE CASCADE
                 );
+
+                    CREATE INDEX IF NOT EXISTS idx_EmployeeEvent_EmployeeId ON EmployeeEvent(EmployeeId);
+                    CREATE INDEX IF NOT EXISTS idx_EmployeeEvent_EventId ON EmployeeEvent(EventId);
                 ",
                 commandType: CommandType.Text,
                 cancellationToken: cancellationToken);
@@ -158,7 +161,7 @@ namespace Website.Repositories
                                 WHERE EE.EmployeeId = EMP.Id
                                 AND EE.EventId = @EventId
                             )
-                    AND     (@searchTerm IS NULL OR (FIRSTNAME || ' ' || LASTNAME) LIKE @searchPattern);
+                    AND     (@searchTerm IS NULL OR FULLNAME LIKE @searchPattern);
                     ",
                 parameters: new
                 {

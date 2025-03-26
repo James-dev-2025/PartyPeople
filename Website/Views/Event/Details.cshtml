@@ -61,7 +61,7 @@
                 data-search-url="/EmployeeEvent/GetValidEmployeeOptionsForEvent"
                 data-extra-params='{"eventId": "@Model.Id"}'
                 data-target-input="EmployeeId"
-                data-required-char-count="2"
+                data-required-char-count="1"
                 data-placeholder="Add employee...">
         </select>
         <button id="createEmployeeEventBtn" class="btn btn-primary btn-sm m-1" onclick="createEmployeeEvent()" @(Model.AtCapacity ? "disabled" : "") >Add</button>
@@ -75,14 +75,24 @@
             </tr>
         </thead>
         <tbody id="employeeEventList">
-            @foreach (var employeeEvent in Model.Employees)
+            @if (Model.Employees.Count > 0)
             {
-                <tr id="employeeEvent-@employeeEvent.Id">
-                    <td>@employeeEvent.EmployeeFirstName @employeeEvent.EmployeeLastName</td>
-                    <td>@(string.IsNullOrEmpty(employeeEvent.EmployeeFavouriteDrink) ? "Not Specified" : employeeEvent.EmployeeFavouriteDrink)</td>
-                    <td class="text-end">
-                        <button class="btn btn-danger btn-sm deleteEmployeeBtn" data-id="@employeeEvent.Id">Remove</button>
-                    </td>
+                @foreach (var employeeEvent in Model.Employees)
+                {
+                    <tr id="employeeEvent-@employeeEvent.Id">
+                        <td>@employeeEvent.EmployeeFirstName @employeeEvent.EmployeeLastName</td>
+                        <td>@(string.IsNullOrEmpty(employeeEvent.EmployeeFavouriteDrink) ? "Not Specified" : employeeEvent.EmployeeFavouriteDrink)</td>
+                        <td class="text-end">
+                            <button class="btn btn-danger btn-sm deleteEmployeeBtn" data-id="@employeeEvent.Id">Remove</button>
+                        </td>
+                    </tr>
+                }
+            }
+            else{
+                <tr id="empty-message">
+                    <td>This event has no employees attending</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             }
         </tbody>

@@ -32,8 +32,11 @@ public class EmployeeRepository : RepositoryBase
                     [FirstName] nvarchar(2147483647) NOT NULL COLLATE NOCASE,
                     [LastName] nvarchar(2147483647) NOT NULL COLLATE NOCASE,
                     [DateOfBirth] date NOT NULL,
-                    [FavouriteDrink] nvarchar(2147483647) 
+                    [FavouriteDrink] nvarchar(2147483647), 
+                    [FullName] AS (FirstName || ' ' || LastName) STORED
                 );
+
+                CREATE INDEX IF NOT EXISTS idx_Employee_FullName ON Employee(FullName);
             ",
             commandType: CommandType.Text,
             cancellationToken: cancellationToken);

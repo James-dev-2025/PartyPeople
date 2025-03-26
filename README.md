@@ -105,6 +105,16 @@ Koderly would like to track upcoming events which have no attendees registered. 
 #### Task 6 answer
 Using the same View Component for task 5 and also creating a new endpoint to get the data into the component, there is now a widget on the home screen to show events with no attendees.
 
+### Polish and Optimisation
+I have added indexes to the columns EmployeeId and EventId on the EmployeeEvent table as these columns will be queried regularly.
+
+I have added an index to the StartDateTime Column on the event table as this table is often filtered by property to get only future events.
+
+I have added a computed column called Fullname to the Employee table which is a concatonation of the first and lastname columns and added an index on to it. This is because the the searchable select component used in task 3 searches the employees by their full name.
+
+I have added an empty list state to the attending employee table on the event detail page
+I have added an empty list state to the events table on the employee detail page
+
 
 ## Submission
 Please commit your work for review by __3 pm__ on __Friday, 13 September 2024__, by completing the steps below.

@@ -34,6 +34,8 @@ public class EventRepository : RepositoryBase
                     [EndDateTime] datetime NOT NULL,
                     [MaximumCapacity] int NULL
                 );
+
+                CREATE INDEX IF NOT EXISTS idx_Event_StartDateTime ON Event(StartDateTime);
             ",
             commandType: CommandType.Text,
             cancellationToken: cancellationToken);
